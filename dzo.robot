@@ -5,37 +5,39 @@ Library  DateTime
 Library  dzo_service.py
 
 *** Variables ***
-${item_index}                        0
-${locator.tenderId}                  xpath=//td[./text()='TenderID']/following-sibling::td[1]
-${locator.title}                     xpath=//div[@class='topInfo']/h1
-${locator.description}               xpath=//h2[@class='tenderDescr']
-${locator.value.amount}              xpath=//span[contains(text(),'Очікувана вартість')]/.. /following-sibling::td/span[1]
-${locator.legalName}                 xpath=//td[contains(text(),'Найменування замовника')]/following-sibling::td//span
-${locator.minimalStep.amount}        xpath=//td[./text()='Розмір мінімального кроку пониження ціни']/following-sibling::td/span[1]
-${locator.enquiryPeriod.endDate}     xpath=//td[./text()='Завершення періоду обговорення']/following-sibling::td[1]
-${locator.tenderPeriod.endDate}      xpath=//td[./text()='Кінцевий строк подання тендерних пропозицій']/following-sibling::td[1]
-${locator.tenderPeriod.startDate}    xpath=//td[contains(text(),'Початок періоду прийому пропозицій')]/following-sibling::td[1]
-${locator.items[0].Description}      xpath=//div[${item_index} + 1]/table/tbody/tr[1]/td[2]
-${locator.items[0].deliveryAddress.countryName}      xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
-${locator.items[0].deliveryAddress.postalCode}       xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
-${locator.items[0].deliveryAddress.locality}         xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
-${locator.items[0].deliveryAddress.streetAddress}    xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
-${locator.items[0].deliveryAddress.region}           xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
-${locator.items[0].deliveryDate.endDate}             xpath=//div[${item_index} + 1]/table/tbody/tr[6]/td[2]
-${locator.items[0].classification.scheme}            xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[1]
-${locator.items[0].classification.id}                xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[2]/span[1]
-${locator.items[0].classification.description}       xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[2]/span[2]
-${locator.items[0].additionalClassifications[0].scheme}         xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[1]
-${locator.items[0].additionalClassifications[0].id}             xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[2]/span[1]
-${locator.items[0].additionalClassifications[0].description}    xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[2]/span[2]
-${locator.items[0].quantity}         xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[1]
-${locator.items[0].unit.code}        xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[2]
-${locator.items[0].unit.name}        xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[2]
+${item_index}                      0
+${locator.tenderId}                xpath=//td[contains(text(),'Ідентифікатор закупівлі')]/following-sibling::td[1]
+${locator.title}                   xpath=//div[@class='topInfo']/h1
+${locator.description}             xpath=//h2[@class='tenderDescr']
+${locator.value.amount}            xpath=//span[contains(text(),'Очікувана вартість')]/.. /following-sibling::td/span[1]
+${locator.legalName}               xpath=//td[contains(text(),'Найменування замовника')]/following-sibling::td//span
+${locator.minimalStep.amount}      xpath=//td[contains(text(),'Розмір мінімального кроку пониження ціни')]/following-sibling::td/span[1]
+${locator.enquiryPeriod.endDate}   xpath=//td[contains(text(),'Дата завершення періоду уточнень')]/following-sibling::td[1]
+${locator.tenderPeriod.endDate}    xpath=//td[contains(text(),'Кінцевий строк подання тендерних пропозицій')]/following-sibling::td[1]
+${locator.tenderPeriod.startDate}  xpath=//td[contains(text(),'Дата початку прийому пропозицій')]/following-sibling::td[1]
+${locator.items.Description}    xpath=//div[${item_index} + 1]/table/tbody/tr[1]/td[2]
+${locator.items.deliveryAddress.countryName}      xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
+${locator.items.deliveryAddress.postalCode}       xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
+${locator.items.deliveryAddress.locality}         xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
+${locator.items.deliveryAddress.streetAddress}    xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
+${locator.items.deliveryAddress.region}           xpath=//div[${item_index} + 1]/table/tbody/tr[5]/td[2]
+${locator.items.deliveryDate.endDate}             xpath=//div[${item_index} + 1]/table/tbody/tr[6]/td[2]
+${locator.items.classification.scheme}            xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[1]
+${locator.items.classification.id}                xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[2]/span[1]
+${locator.items.classification.description}       xpath=//div[${item_index} + 1]/table/tbody/tr[2]/td[2]/span[2]
+${locator.items.additionalClassifications[0].scheme}         xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[1]
+${locator.items.additionalClassifications[0].id}             xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[2]/span[1]
+${locator.items.additionalClassifications[0].description}    xpath=//div[${item_index} + 1]/table/tbody/tr[3]/td[2]/span[2]
+${locator.items.quantity}         xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[1]
+${locator.items.unit.code}        xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[2]
+${locator.items.unit.name}        xpath=//div[${item_index} + 1]/table/tbody/tr[4]/td[2]/span[2]
 ${locator.questions[0].title}        xpath=//div[@class = 'question relative']//div[@class = 'title']
 ${locator.questions[0].description}  xpath=//div[@class='text']
 ${locator.questions[0].date}         xpath=//div[@class='date']
 ${locator.questions[0].answer}       xpath=//div[@class = 'answer relative']//div[@class = 'text']
 ${locator.bids}                      xpath=//div[@class="qualificationBidAmount"]/span
+${locator.currency}                  xpath=//span[contains(text(),'Очікувана вартість')]/.. /following-sibling::td/span[2]
+${locator.tax}                       xpath=//span[@class='taxIncluded']
 
 
 *** Keywords ***
@@ -73,7 +75,7 @@ Pre Login
   Wait Until Page Contains Element  name=siteLogin  10
   Input Text                        name=siteLogin  ${login}
   Input Text                        name=sitePass   ${password}
-  Click Button                      xpath=.//*[@id='table1']/tbody/tr/td/form/p[3]/input
+  Click Button                      xpath=//*[@id='table1']/tbody/tr/td/form/p[3]/input
 
 Створити тендер
   [Arguments]  @{ARGUMENTS}
@@ -88,6 +90,10 @@ Pre Login
   ${title}=               Get From Dictionary   ${ARGUMENTS[1].data}              title
   ${description}=         Get From Dictionary   ${ARGUMENTS[1].data}              description
   ${budget}=              Get From Dictionary   ${ARGUMENTS[1].data.value}        amount
+  ${currency}=            Get From Dictionary   ${ARGUMENTS[1].data.value}        currency
+  ${tax}=                 Get From Dictionary   ${ARGUMENTS[1].data.value}        valueAddedTaxIncluded
+  ${tax}=                 Convert To String     ${tax}
+  ${tax}=                 Convert To Lowercase  ${tax}
 #  ${step_rate}=          Get From Dictionary   ${ARGUMENTS[1].data.minimalStep}  amount
   ${enquiry_end_date}=    Get From Dictionary   ${ARGUMENTS[1].data.enquiryPeriod}   endDate
   ${enquiry_end_date}=    convert_date_to_slash_format   ${enquiry_end_date}
@@ -102,6 +108,8 @@ Pre Login
   Set Test Variable    ${budget}
   Set Test Variable    ${enquiry_end_date}
   Set Test Variable    ${end_date}
+  Set Test Variable    ${currency}
+  Set Test Variable    ${tax}
   
   Selenium2Library.Switch Browser     ${ARGUMENTS[0]}
   Wait Until Page Contains Element    jquery=a[href="/tenders/new"]   30
@@ -117,15 +125,17 @@ Pre Login
   Wait Until Page Contains Element    name=data[title]                     30
   Input text                          name=data[title]                     ${title}
   Input text                          name=data[description]               ${description}
+  Select From List By Value           name=data[value][currency]           ${currency}
+  Select From List By Value           name=data[value][valueAddedTaxIncluded]   ${tax}
   Input text                          name=data[enquiryPeriod][endDate]    ${enquiry_end_date}
   Input text                          name=data[tenderPeriod][endDate]     ${end_date}
   Click Element                       id=multiItems
   Input text                          name=data[value][amount]             ${budget}
   Input text                          name=data[minimalStep][amount]       100.10
   Додати предмет                      ${items[0]}                          0
-  Click Element                       xpath= //button[@value='publicate']
+  Click Element                       xpath=//button[@value='publicate']
   Wait Until Page Contains            Тендер опубліковано                  30
-  ${tender_UAid}=                     Get Text    xpath=//td[contains(text(),'TenderID')]/following-sibling::td[1]
+  ${tender_UAid}=                     Get Text                             ${locator.tenderId}  
   ${Ids}=                             Convert To String                    ${tender_UAid}
   Set Test Variable                   ${Ids}
   [return]   ${Ids}
@@ -143,7 +153,7 @@ Pre Login
   Додати багато предметів             @{items}
   Click Element                       xpath= //button[@value='publicate']
   Wait Until Page Contains            Тендер опубліковано                 30
-  ${tender_UAid}=                     Get Text    xpath=//td[contains(text(),'TenderID')]/following-sibling::td[1]
+  ${tender_UAid}=                     Get Text                            ${locator.tenderId}  
   ${Ids}=                             Convert To String                   ${tender_UAid}
   Set Test Variable                   ${Ids}
 #  Run keyword if                     '${mode}' == 'multi'   Set Multi Ids   ${tender_UAid}
@@ -164,7 +174,7 @@ Pre Login
   dzo.Створити лот                    ${username}       ${tender_data}     @{lots}
   Click Element                       xpath= //button[@value='publicate']
   Wait Until Page Contains            Тендер опубліковано                  30
-  ${tender_UAid}=                     Get Text          xpath=//td[contains(text(),'TenderID')]/following-sibling::td[1]
+  ${tender_UAid}=                     Get Text                             ${locator.tenderId}
   ${Ids}=                             Convert To String                    ${tender_UAid}
   Set Test Variable                   ${Ids}
   [return]   ${Ids}
@@ -225,7 +235,7 @@ Pre Login
   Choose File     xpath=//table[@id='uploaded']/*//a[contains(@class, 'uploadFile')]  ${ARGUMENTS[1]}
   Sleep   2
   Reload Page
-  Click Button    //button[@value='save']
+  Click Button    xpath=//button[@value='save']
   Sleep   3
   Capture Page Screenshot
 
@@ -235,7 +245,7 @@ Set Multi Ids
   ...      ${ARGUMENTS[1]} ==  ${tender_UAid}
   Log Many    @{ARGUMENTS}
   Log      ${ARGUMENTS[1]}
-  ${id}=    Get Text   xpath=//td[contains(text(),'TenderID')]/following-sibling::td[1]
+  ${id}=    Get Text       ${locator.tenderId}  
   ${Ids}=   Create List    ${ARGUMENTS[1]}   ${id}
 
 Додати предмет
@@ -253,7 +263,7 @@ Set Multi Ids
   ${postalCode}=          Get From Dictionary   ${ARGUMENTS[0].deliveryAddress}       postalCode
   ${delivery_end_date}=   Get From Dictionary   ${ARGUMENTS[0].deliveryDate}          endDate
   ${delivery_end_date}=   convert_date_to_slash_format                                ${delivery_end_date}  
-  ${cpv}=                 Convert To String     Картонки
+  ${cpv}=                 Convert To String     Картонні коробки
   ${cpv_id}=              Get From Dictionary   ${ARGUMENTS[0].classification}        id  
   ${cpv_id1}=             Replace String        ${cpv_id}   -   _
   ${dkpp_desc1}=          Get From Dictionary   ${ARGUMENTS[0].additionalClassifications[0]}   description
@@ -266,20 +276,20 @@ Set Multi Ids
   Wait Until Page Contains Element    name=data[items][${index}][description]
   Input text                          name=data[items][${index}][description]   ${description}
   Input text                          name=data[items][${index}][quantity]   ${quantity}
-  Click Element                       xpath=(//a[contains(@data-class, 'cpv')][./text()='Визначити за довідником'])[${index} + 1]
-  Select Frame                        xpath=//iframe[contains(@src,'/js/classifications/cpv/uk.htm?relation=true')]
+  Click Element                       xpath=//div[@class='listItems']/div[${index} + 1]//a[contains(@data-class, 'CPV')]
+  Select Frame                        xpath=//iframe[contains(@src,'/js/classifications/universal/index.htm?lang=uk&shema=CPV&relation=true')]
   Input text                          id=search     ${cpv}
   Wait Until Page Contains            ${cpv_id}
   Click Element                       xpath=//a[contains(@id,'${cpv_id1}')]
-  Click Element                       xpath=.//*[@id='select']
+  Click Element                       xpath=//*[@id='select']
   Unselect Frame
-  Click Element                       xpath=(//a[contains(@data-class, 'dkpp')][./text()='Визначити за довідником'])[${index} + 1]
-  Select Frame                        xpath=//iframe[contains(@src,'/js/classifications/dkpp/uk.htm?relation=true')]
+  Click Element                       xpath=//div[@class='listItems']/div[${index} + 1]//a[contains(@data-class, 'ДКПП;ДК015;ДК018;ДК003')]
+  Select Frame                        xpath=//iframe[contains(@src,'/js/classifications/universal/index.htm?lang=uk&shema=ДКПП;ДК015;ДК018;ДК003;NONE&relation=true')]
   Input text                          id=search     ${dkpp_desc1}
   Wait Until Page Contains            ${dkpp_id11}
-  Sleep                               1
+  Sleep   1
   Click Element                       xpath=//a[contains(@id,'${dkpp_1id}')]
-  Click Element                       xpath=.//*[@id='select']
+  Click Element                       xpath=//*[@id='select']
   Unselect Frame
   Select From List By Label           name=data[items][${index}][country_id]                        ${countryName}
   Select From List By Label           name=data[items][${index}][region_id]                         ${region}
@@ -487,18 +497,14 @@ Set Multi Ids
   [Documentation]
   ...      ${ARGUMENTS[0]} ==  username
   ...      ${ARGUMENTS[1]} ==  fieldname
-  Log Many    @{ARGUMENTS}
-  ${item_index}=   Get Substring    ${ARGUMENTS[1]}    6    7
-  Log   ${locator.items[0].Description}
+  ${item_index}=        Get Substring    ${ARGUMENTS[1]}    6    7
   Set Suite Variable    ${item_index}    ${item_index}
-  Switch browser   ${ARGUMENTS[0]}
+  Switch browser        ${ARGUMENTS[0]}
   Run Keyword And Return  Отримати інформацію про ${ARGUMENTS[1]}
 
 Отримати текст із поля і показати на сторінці
   [Arguments]   ${fieldname}
   sleep  1
-  Log   ${locator.items[0].Description}
-  Log   ${locator.${fieldname}}
   ${return_value}=    Get Text  ${locator.${fieldname}}
   [return]  ${return_value}
 
@@ -537,23 +543,24 @@ Set Multi Ids
   [return]  ${tenderPeriodEndDate}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.countryName
-  ${countryName}=   Отримати текст із поля і показати на сторінці   items[0].deliveryAddress.countryName
+  ${countryName}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.countryName
   [return]  ${countryName.split(',')[1].strip()}
 
 Отримати інформацію про items[${item_index}].classification.scheme
-  ${classificationScheme}=   Отримати текст із поля і показати на сторінці   items[0].classification.scheme
+  ${classificationScheme}=   Отримати текст із поля і показати на сторінці   items.classification.scheme
   [return]  ${classificationScheme.split(' ')[1]}
 
 Отримати інформацію про items[${item_index}].additionalClassifications[0].scheme
-  ${additionalClassificationsScheme}=   Отримати текст із поля і показати на сторінці   items[0].additionalClassifications[0].scheme
-  [return]  ${additionalClassificationsScheme.split(' ')[1]}
+  ${additionalClassificationsScheme}=   Отримати текст із поля і показати на сторінці   items.additionalClassifications[0].scheme
+  ${additionalClassificationsScheme}=   convert_string_from_dict_dzo                    ${additionalClassificationsScheme.split(' ')[1]}
+  [return]  ${additionalClassificationsScheme}
 
 Отримати інформацію про questions[0].title
   #sleep  3
-  #Click Element                       xpath=//a[@class='reverse tenderLink']
+  #Click Element       xpath=//a[@class='reverse tenderLink']
   sleep  3
-  Click Element                       xpath=//a[@class='reverse openCPart'][span[text()='Обговорення']]
-  ${questionsTitle}=   Отримати текст із поля і показати на сторінці   questions[0].title
+  Click Element        xpath=//a[@class='reverse openCPart'][span[text()='Обговорення']]
+  ${questionsTitle}=   Отримати текст із поля і показати на сторінці    questions[0].title
   ${questionsTitle}=   Convert To Lowercase   ${questionsTitle}
   [return]  ${questionsTitle.capitalize().split('.')[0] + '.'}
 
@@ -570,40 +577,41 @@ Set Multi Ids
 #  sleep  2
 #  Click Element                       xpath=//a[@class='reverse tenderLink']
   sleep  2
-  Click Element                       xpath=//a[@class='reverse openCPart'][span[text()='Обговорення']]
+  Click Element         xpath=//a[@class='reverse openCPart'][span[text()='Обговорення']]
   ${questionsAnswer}=   Отримати текст із поля і показати на сторінці   questions[0].answer
   [return]  ${questionsAnswer}
 
 Отримати інформацію про items[${item_index}].deliveryDate.endDate
-  ${deliveryDateEndDate}=   Отримати текст із поля і показати на сторінці   items[0].deliveryDate.endDate
+  ${deliveryDateEndDate}=   Отримати текст із поля і показати на сторінці   items.deliveryDate.endDate
   ${deliveryDateEndDate}=   subtract_from_time    ${deliveryDateEndDate}   15   0
   [return]  ${deliveryDateEndDate}
 
 Отримати інформацію про items[${item_index}].classification.id
-  ${classificationId}=   Отримати текст із поля і показати на сторінці   items[0].classification.id
+  ${classificationId}=   Отримати текст із поля і показати на сторінці   items.classification.id
   [return]  ${classificationId}
 
 Отримати інформацію про items[${item_index}].classification.description
-  ${classificationDescription}=   Отримати текст із поля і показати на сторінці     items[0].classification.description
+  ${classificationDescription}=   Отримати текст із поля і показати на сторінці   items.classification.description
+  ${classificationDescription}=   convert_string_from_dict_dzo                    ${classificationDescription}
 #  Run Keyword And Return If  '${classificationDescription}' == 'Картонки'    Convert To String  Cartons
   [return]  ${classificationDescription}
 
 Отримати інформацію про items[${item_index}].additionalClassifications[0].id
-  ${additionalClassificationsId}=   Отримати текст із поля і показати на сторінці     items[0].additionalClassifications[0].id
+  ${additionalClassificationsId}=   Отримати текст із поля і показати на сторінці     items.additionalClassifications[0].id
   [return]  ${additionalClassificationsId}
 
 Отримати інформацію про items[${item_index}].additionalClassifications[0].description
-  ${additionalClassificationsDescription}=   Отримати текст із поля і показати на сторінці     items[0].additionalClassifications[0].description
+  ${additionalClassificationsDescription}=   Отримати текст із поля і показати на сторінці     items.additionalClassifications[0].description
 #  ${additionalClassificationsDescription}=   Convert To Lowercase   ${additionalClassificationsDescription}
   [return]  ${additionalClassificationsDescription}
 
 Отримати інформацію про items[${item_index}].quantity
-  ${itemsQuantity}=   Отримати текст із поля і показати на сторінці     items[0].quantity
-  ${itemsQuantity}=   Convert To Integer    ${itemsQuantity}
+  ${itemsQuantity}=   Отримати текст із поля і показати на сторінці     items.quantity
+  ${itemsQuantity}=   Convert To Integer                                ${itemsQuantity}
   [return]  ${itemsQuantity}
 
 Отримати інформацію про items[${item_index}].unit.code
-#  ${unitCode}=   Отримати текст із поля і показати на сторінці     items[0].unit.code
+#  ${unitCode}=   Отримати текст із поля і показати на сторінці     items.unit.code
 #  Run Keyword And Return If  '${unitCode}'== 'кг'   Convert To String  KGM
 #  [return]  ${unitCode}
    Log       | Код одиниці вимірювання не виводиться на ДЗО      console=yes
@@ -627,36 +635,47 @@ Set Multi Ids
   Log       | Viewer can't see this information on DZO        console=yes
 
 Отримати інформацію про items[${item_index}].deliveryAddress.postalCode
-  ${postalCode}=   Отримати текст із поля і показати на сторінці   items[0].deliveryAddress.postalCode
+  ${postalCode}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.postalCode
   [return]  ${postalCode.split(',')[0]}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.locality
-  ${locality}=   Отримати текст із поля і показати на сторінці   items[0].deliveryAddress.locality
+  ${locality}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.locality
   [return]  ${locality.split(',')[4].strip()}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.streetAddress
-  ${streetAddress}=   Отримати текст із поля і показати на сторінці   items[0].deliveryAddress.streetAddress
-  ${streetAddress}=   Convert To String    ${streetAddress}
+  ${streetAddress}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.streetAddress
+  ${streetAddress}=   Convert To String                               ${streetAddress}
   [return]  ${streetAddress.split(',')[2].strip()}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.region
-  ${region}=    Отримати текст із поля і показати на сторінці   items[0].deliveryAddress.region
-  ${region}=    Set Variable    ${region.split(',')[3].strip()}  
-  ${region}=    convert_string_from_dict_dzo    ${region}
+  ${region}=    Отримати текст із поля і показати на сторінці   items.deliveryAddress.region
+  ${region}=    Set Variable                                    ${region.split(',')[3].strip()}  
+  ${region}=    convert_string_from_dict_dzo                    ${region}
   [return]    ${region}
 
 Отримати інформацію про items[${item_index}].unit.name
-  ${unitName}=   Отримати текст із поля і показати на сторінці     items[0].unit.name
+  ${unitName}=   Отримати текст із поля і показати на сторінці     items.unit.name
   ${unitName}=   convert_string_from_dict_dzo    ${unitName}
   [return]  ${unitName}
 
 Отримати інформацію про items[${item_index:[^las]+}].description
-  ${itemsDescription}=   Отримати текст із поля і показати на сторінці     items[0].Description
+  ${itemsDescription}=   Отримати текст із поля і показати на сторінці     items.Description
   [return]  ${itemsDescription}
 
 Отримати інформацію про bids
   ${bids}=    Отримати текст із поля і показати на сторінці   bids
   [return]  ${bids}
+
+Отримати інформацію про value.currency
+  ${currency}=   Отримати текст із поля і показати на сторінці   currency
+  ${currency}=   convert_string_from_dict_dzo                    ${currency}
+  [return]  ${currency}
+
+Отримати інформацію про value.valueAddedTaxIncluded
+  ${tax}=   Отримати текст із поля і показати на сторінці   tax
+  ${tax}=   convert_string_from_dict_dzo                    ${tax}
+  ${tax}=   Convert To Boolean                              ${tax}
+  [return]  ${tax}
 
 
 Подати цінову пропозицію
@@ -667,22 +686,28 @@ Set Multi Ids
   ...      ${ARGUMENTS[2]} ==  ${test_bid_data}
   ${bid}=    Get From Dictionary          ${ARGUMENTS[2].data.value}              amount
   dzo.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}                         ${ARGUMENTS[1]}
-  Run keyword if   '${TEST NAME}' != 'Неможливість подати цінову пропозицію до початку періоду подачі пропозицій першим учасником'
-  ...    Wait Until Keyword Succeeds    10 x   60 s    
-  ...    Дочекатися синхронізації для періоду подачі пропозицій
+#  Run keyword if   '${TEST NAME}' != 'Неможливість подати цінову пропозицію до початку періоду подачі пропозицій першим учасником'
+#  ...    Wait Until Keyword Succeeds    10 x   60 s    
+#  ...    Дочекатися синхронізації для періоду подачі пропозицій
   Input Text                              name=data[value][amount]                ${bid}
   Click Button                            name=do
-  Sleep                                   1
+  Sleep   1
   Click Element                           xpath=//a[./text()= 'Закрити']
-  Sleep                                   1
+  Sleep   1
   Click Button                            name=pay
-  Sleep                                   1
+  Sleep   1
   Click Element                           xpath=//a[./text()= 'OK']
   [return]  ${Arguments[2]}
 
+########## Видалити після встановлення коректних часових проміжків для періодів #######################
 Дочекатися синхронізації для періоду подачі пропозицій
   Reload Page
   Wait Until Page Contains    Ваша пропозиція
+
+Дочекатися синхронізації для періоду аукціон
+  Reload Page
+  Wait Until Page Contains    Кваліфікація учасників
+########################################################################################################
 
 Змінити цінову пропозицію
   [Arguments]    @{ARGUMENTS}
@@ -693,6 +718,9 @@ Set Multi Ids
   ...      ${ARGUMENTS[3]} ==  ${bid}
   Log Many    @{ARGUMENTS}
   dzo.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}                              ${ARGUMENTS[1]}
+#  Run keyword if   '${TEST NAME}' == 'Неможливість змінити цінову пропозицію до 50000 після закінчення прийому пропозицій'
+#  ...    Wait Until Keyword Succeeds    10 x   60 s    
+#  ...    Дочекатися синхронізації для періоду аукціон
   Wait Until Page Contains                Ваша пропозиція                              10
   Sleep  1
   Click Element                           xpath=//a[@class='button save bidToEdit']
@@ -716,13 +744,13 @@ Set Multi Ids
   Click Element                           xpath=//a[@class='button save bidToEdit']
   Wait Until Page Contains                Відкликати пропозицію                        10
   Click Element                           xpath=//button[@value='unbid']
-  Sleep                                   1
+  Sleep   1
   Click Element                           xpath=//a[@class='jBtn green']
-  Sleep                                   2
+  Sleep   2
   Wait Until Page Contains                Підтвердіть зміни в пропозиції
   Input Text                              xpath=//div[2]/form/table/tbody/tr[1]/td[2]/div/input    203986723
   Click Element                           xpath=//button[./text()='Надіслати']
-  Wait Until Page Contains                Вашу пропозицію відкликано    10
+  Wait Until Page Contains                Вашу пропозицію відкликано    30
   Click Element                           xpath=//a[./text()= 'Закрити']
   [return]  ${Arguments[1]}
 
@@ -757,7 +785,7 @@ Set Multi Ids
   [Arguments]  ${username}  ${tenderId}
   dzo.Пошук тендера по ідентифікатору   ${username}    ${tenderId}
   Click Element                         xpath=//a[@class="reverse getAuctionUrl"]
-  ${url}=                               Get Element Attribute                     xpath=//div[@class='answers']/div/a@href
+  ${url}=                               Get Element Attribute                     xpath=//section/h3/a[@class="reverse"]@href
   [return]  ${url}
 
 
