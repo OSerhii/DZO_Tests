@@ -24,7 +24,7 @@ def convert_string_from_dict_dzo(string):
         u"кг": u"кілограм",
         u"грн": u"UAH",
         u"(з ПДВ)": u"True",
-        u"(без ПДВ)": u"false",
+        u"(без ПДВ)": u"False",
         u"Картонні коробки": u"Картонки",
         u"ДК": u"ДКПП",
     }.get(string, string)
