@@ -813,13 +813,13 @@ Set Multi Ids
 Завантажити документ в ставку
   [Arguments]  ${username}  ${filePath}  ${tenderId}
   dzo.Пошук тендера по ідентифікатору     ${username}    ${tenderId}
-  Run Keyword And Ignore Error    Wait Until Page Contains                Ваша пропозиція                               10
-  Run Keyword And Ignore Error    Click Element                           xpath=//a[@class='button save bidToEdit']
-  Run Keyword And Ignore Error    Execute Javascript                      $("body > div").removeAttr("style");
-  Run Keyword And Ignore Error    Log   ${filePath}
-  Run Keyword And Ignore Error    Choose File                             xpath=/html/body/div[1]/form/input            ${filePath}
-  Run Keyword And Ignore Error    Click Element                           xpath=//button[@value='save']
-  Run Keyword If   '${TEST NAME}' == 'Неможливість завантажити документ другим учасником після закінчення прийому пропозицій'   Завантаження документу  ${username}  ${filePath}  ${tenderId}
+  Wait Until Page Contains                Ваша пропозиція                               10
+  Click Element                           xpath=//a[@class='button save bidToEdit']
+  Execute Javascript                      $("body > div").removeAttr("style");
+  Log   ${filePath}
+  Choose File                             xpath=/html/body/div[1]/form/input            ${filePath}
+  Click Element                           xpath=//button[@value='save']
+
 
 Завантаження документу  
   [Arguments]  ${username}  ${filePath}  ${tenderId}
