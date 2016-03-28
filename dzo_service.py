@@ -12,6 +12,7 @@ def subtract_from_time(date_time, subtr_min, subtr_sec):
 
 def procuringEntity_name_dzo(INITIAL_TENDER_DATA):
     INITIAL_TENDER_DATA.data.procuringEntity['name'] = u"ПрАТ <Комбайн Інк.>"
+#    INITIAL_TENDER_DATA.data.items.unit['name'] = u"кг"
     return INITIAL_TENDER_DATA
 
 def convert_title_dzo(string):
@@ -19,12 +20,12 @@ def convert_title_dzo(string):
 
 def convert_string_from_dict_dzo(string):
     return {
-        u"м. Київ": u"Київська область",
-        u"Київська область": u"м. Київ",
-        u"кг": u"кілограм",
+#        u"м. Київ": u"Київська область",
+#        u"Київська область": u"м. Київ",
+#        u"кг": u"кілограм",
         u"грн": u"UAH",
         u"(з ПДВ)": u"True",
-        u"(без ПДВ)": u"False",
-        u"Картонні коробки": u"Картонки",
+        u"(без ПДВ)": u"false",
+#        u"Картонні коробки": u"Картонки",
         u"ДК": u"ДКПП",
     }.get(string, string)
