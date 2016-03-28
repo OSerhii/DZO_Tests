@@ -41,6 +41,11 @@ ${locator.tax}                       xpath=//span[@class='taxIncluded']
 
 
 *** Keywords ***
+Підготувати дані для оголошення тендера
+  [Documentation]  Це слово використовується в майданчиків, тому потрібно, щоб воно було і тут
+  [Arguments]  ${username}  ${tender_data}
+    [return]  ${tender_data}
+
 Підготувати клієнт для користувача
   [Arguments]  @{ARGUMENTS}
   [Documentation]  Відкрити браузер, створити об’єкт api wrapper, тощо
@@ -110,7 +115,8 @@ Pre Login
   Set Test Variable    ${end_date}
   Set Test Variable    ${currency}
   Set Test Variable    ${tax}
-  
+
+ 
   Selenium2Library.Switch Browser     ${ARGUMENTS[0]}
   Wait Until Page Contains Element    jquery=a[href="/tenders/new"]   30
   Click Element                       jquery=a[href="/tenders/new"]
@@ -185,6 +191,9 @@ Pre Login
   ${enum}=                            Get From Dictionary   ${tender_data.data.features[0]}   enum
   Log Many   ${tender_data.data}
   Log Many   ${features}
+  Select From List                    name=tender_type                     features
+  Click Element                       xpath=//a[@class="jBtn green"]
+  Sleep   1
   Wait Until Page Contains Element    name=data[title]                     30
   Input text                          name=data[title]                     ${title}
   Input text                          name=data[description]               ${description}
@@ -194,7 +203,14 @@ Pre Login
   Input text                          name=data[value][amount]             ${budget}
   Input text                          name=data[minimalStep][amount]       100.10
   Додати предмет                      ${items[0]}                          0
+  Click Element                       id=multiFeatures
   Додати нецінові критерії            ${features}
+  Click Element                       xpath= //button[@value='publicate']
+  Wait Until Page Contains            Тендер опубліковано                  30
+  ${tender_UAid}=                     Get Text                             ${locator.tenderId}
+  ${Ids}=                             Convert To String                    ${tender_UAid}
+  Set Test Variable                   ${Ids}
+  [return]   ${Ids}
 
 
 Додати нецінові критерії
@@ -203,13 +219,43 @@ Pre Login
   Log Many    ${features}
   ${features_length}=   Get Length   ${features}
   : FOR    ${INDEX}    IN RANGE    0    ${features_length}
-  \   Run Keyword if   ${INDEX} != 0      Click Element    xpath=//a[@class='addMultiItem']
+  \   Run Keyword if   ${INDEX} != 0      Click Element    xpath=//section[@id='multiFeatures']//a[contains(text(), 'Додати критерій')]
   \   Додати показник  ${features[${INDEX}]}   ${INDEX}
 
 
-Додати показник 
+Додати показник
+  [Arguments]   ${feature}  ${feature_index}
+  ${code}=             Get From Dictionary      ${feature}        code
+  ${description}=      Get From Dictionary      ${feature}        description
+  ${description}=      Decode Bytes To String   ${description}    UTF-8
+  ${enum}=             Get From Dictionary      ${feature}        enum
+  ${enum_length}=      Get Length               ${enum}
+  ${enum_title}=       Get From Dictionary      ${enum[0]}        title
+  ${enum_title}=       Decode Bytes To String   ${enum_title}     UTF-8
+  ${enum_value}=       Get From Dictionary      ${enum[0]}        value
+  ${featureOf}=        Get From Dictionary      ${feature}        featureOf
+  ${feature_title}=    Get From Dictionary      ${feature}        title
+  ${feature_title}=    Decode Bytes To String   ${feature_title}  UTF-8
+  ${code}=             Get From Dictionary      ${feature}        code
 
+  Input text                  name=data[features][${feature_index}][title]              ${feature_title}
+  Input text                  name=data[features][${feature_index}][description]        ${description}
+  Select From List By Value   name=data[features][${feature_index}][featureOf]          ${featureOf}
+  Run Keyword If   ${featureOf} == item    Select From List By Value   name=data[features][${feature_index}][relatedItem]   {feature_title}
 
+  : FOR   ${index}   IN RANGE   0   ${enum_length}
+  \   Run Keyword if   ${index} != 0    Click Element    xpath=//div[@class='tenderItemElement tenderFeatureItemElement'][${feature_index + 1}]//a[@class='addFeatureOptItem']
+  \   Додати опцію   ${enum[${index}]}   ${index}   ${feature_index}
+
+Додати опцію
+  [Arguments]   ${enum}  ${index}  ${feature_index}
+  ${enum_title}=       Get From Dictionary      ${enum}               title
+  ${enum_title}=       Decode Bytes To String   ${enum_title}         UTF-8
+  ${enum_value}=       Get From Dictionary      ${enum}               value
+  ${enum_value}=       Convert To Integer       ${enum_value * 100}
+
+  Input text                  name=data[features][${feature_index}][enum][${index}][title]     ${enum_title}
+  Input text                  name=data[features][${feature_index}][enum][${index}][value]     ${enum_value}
 
 
 Завантажити документ
@@ -396,6 +442,7 @@ Set Multi Ids
   Click Element                       xpath=//div[contains(@class, 'buttons')]//button[@type='submit']
   Wait Until Page Contains            ${title}   30
   Capture Page Screenshot
+  Log Many   ${ARGUMENTS[2]}
   [return]   ${ARGUMENTS[2]}
 
 Відповісти на питання
@@ -468,6 +515,7 @@ Set Multi Ids
   ...      ${ARGUMENTS[1]} = description
 
   Selenium2Library.Switch Browser    ${ARGUMENTS[0]}
+  Execute Javascript                      $(".topFixed").remove();
   Click Element                      xpath=//a[@class='reverse'][./text()='Мої закупівлі']
   Wait Until Page Contains Element   xpath=//a[@class='reverse'][./text()='Чернетки']   30
   Click Element                      xpath=//a[@class='reverse'][./text()='Чернетки']
@@ -491,6 +539,13 @@ Set Multi Ids
   Selenium2Library.Switch Browser    ${ARGUMENTS[0]}
   dzo.Пошук тендера по ідентифікатору    ${ARGUMENTS[0]}   ${ARGUMENTS[1]}
   Reload Page
+
+
+Отримати інформацію із запитання
+  [Arguments]   @{ARGUMENTS}
+  Log Many    @{ARGUMENTS}
+  Run Keyword And Return  Отримати інформацію про ${ARGUMENTS[1]}
+
 
 Отримати інформацію із тендера
   [Arguments]  @{ARGUMENTS}
@@ -562,6 +617,7 @@ Set Multi Ids
   Click Element        xpath=//a[@class='reverse openCPart'][span[text()='Обговорення']]
   ${questionsTitle}=   Отримати текст із поля і показати на сторінці    questions[0].title
   ${questionsTitle}=   Convert To Lowercase   ${questionsTitle}
+  ${questionsTitle}=   Set Variable   ${questionsTitle.split(' (')[0]}
   [return]  ${questionsTitle.capitalize().split('.')[0] + '.'}
 
 Отримати інформацію про questions[0].description
@@ -640,16 +696,16 @@ Set Multi Ids
 
 Отримати інформацію про items[${item_index}].deliveryAddress.locality
   ${locality}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.locality
-  [return]  ${locality.split(',')[4].strip()}
+  [return]  ${locality.split(',')[3].strip()}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.streetAddress
   ${streetAddress}=   Отримати текст із поля і показати на сторінці   items.deliveryAddress.streetAddress
   ${streetAddress}=   Convert To String                               ${streetAddress}
-  [return]  ${streetAddress.split(',')[2].strip()}
+  [return]  ${streetAddress.split(',')[4].strip()}
 
 Отримати інформацію про items[${item_index}].deliveryAddress.region
   ${region}=    Отримати текст із поля і показати на сторінці   items.deliveryAddress.region
-  ${region}=    Set Variable                                    ${region.split(',')[3].strip()}  
+  ${region}=    Set Variable                                    ${region.split(',')[2].strip()}  
   ${region}=    convert_string_from_dict_dzo                    ${region}
   [return]    ${region}
 
@@ -686,9 +742,9 @@ Set Multi Ids
   ...      ${ARGUMENTS[2]} ==  ${test_bid_data}
   ${bid}=    Get From Dictionary          ${ARGUMENTS[2].data.value}              amount
   dzo.Пошук тендера по ідентифікатору     ${ARGUMENTS[0]}                         ${ARGUMENTS[1]}
-#  Run keyword if   '${TEST NAME}' != 'Неможливість подати цінову пропозицію до початку періоду подачі пропозицій першим учасником'
-#  ...    Wait Until Keyword Succeeds    10 x   60 s    
-#  ...    Дочекатися синхронізації для періоду подачі пропозицій
+  Run keyword if   '${TEST NAME}' != 'Неможливість подати цінову пропозицію до початку періоду подачі пропозицій першим учасником'
+  ...    Wait Until Keyword Succeeds    10 x   60 s    
+  ...    Дочекатися синхронізації для періоду подачі пропозицій
   Input Text                              name=data[value][amount]                ${bid}
   Click Button                            name=do
   Sleep   1
@@ -728,9 +784,9 @@ Set Multi Ids
   Input text                              name=data[value][amount]                     ${ARGUMENTS[3]}
   Click Element                           xpath=//button[@value='save']
   Sleep  2
-  Wait Until Page Contains                Підтвердіть зміни в пропозиції
-  Input Text                              xpath=//div[2]/form/table/tbody/tr[1]/td[2]/div/input    203986723
-  Click Element                           xpath=//button[./text()='Надіслати']
+  Run Keyword And Ignore Error   Wait Until Page Contains                Підтвердіть зміни в пропозиції
+  Run Keyword And Ignore Error   Input Text                              xpath=//div[2]/form/table/tbody/tr[1]/td[2]/div/input    203986723
+  Run Keyword And Ignore Error   Click Element                           xpath=//button[./text()='Надіслати']
   [return]  ${Arguments[2]}
 
 Скасувати цінову пропозицію
@@ -757,12 +813,24 @@ Set Multi Ids
 Завантажити документ в ставку
   [Arguments]  ${username}  ${filePath}  ${tenderId}
   dzo.Пошук тендера по ідентифікатору     ${username}    ${tenderId}
+  Run Keyword And Ignore Error    Wait Until Page Contains                Ваша пропозиція                               10
+  Run Keyword And Ignore Error    Click Element                           xpath=//a[@class='button save bidToEdit']
+  Run Keyword And Ignore Error    Execute Javascript                      $("body > div").removeAttr("style");
+  Run Keyword And Ignore Error    Log   ${filePath}
+  Run Keyword And Ignore Error    Choose File                             xpath=/html/body/div[1]/form/input            ${filePath}
+  Run Keyword And Ignore Error    Click Element                           xpath=//button[@value='save']
+  Run Keyword If   '${TEST NAME}' == 'Неможливість завантажити документ другим учасником після закінчення прийому пропозицій'   Завантаження документу  ${username}  ${filePath}  ${tenderId}
+
+Завантаження документу  
+  [Arguments]  ${username}  ${filePath}  ${tenderId}
+  dzo.Пошук тендера по ідентифікатору     ${username}    ${tenderId}
   Wait Until Page Contains                Ваша пропозиція                               10
   Click Element                           xpath=//a[@class='button save bidToEdit']
   Execute Javascript                      $("body > div").removeAttr("style");
   Log   ${filePath}
   Choose File                             xpath=/html/body/div[1]/form/input            ${filePath}
-  Click Element                           xpath=//button[@value='save']
+  Run Keyword And Ignore Error    Click Element                           xpath=//button[@value='save']
+
 
 Змінити документ в ставці
   [Arguments]   ${username}  ${filepath}  ${bidid}  ${docid}
@@ -776,8 +844,8 @@ Set Multi Ids
 
 Отримати посилання на аукціон для глядача
   [Arguments]  ${username}  ${tenderId}
+  Sleep   120
   dzo.Пошук тендера по ідентифікатору   ${username}    ${tenderId}
-  Click Element                         xpath=//section/h3/a[@class="reverse"]
   ${url}=                               Get Element Attribute                     xpath=//section/h3/a[@class="reverse"]@href
   [return]  ${url}
 
@@ -785,7 +853,8 @@ Set Multi Ids
   [Arguments]  ${username}  ${tenderId}
   dzo.Пошук тендера по ідентифікатору   ${username}    ${tenderId}
   Click Element                         xpath=//a[@class="reverse getAuctionUrl"]
-  ${url}=                               Get Element Attribute                     xpath=//section/h3/a[@class="reverse"]@href
+  Sleep   3
+  ${url}=                               Get Element Attribute                     xpath=//a[contains(text(),"Перейдіть до редукціону")]@href
   [return]  ${url}
 
 
